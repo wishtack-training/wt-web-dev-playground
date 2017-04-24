@@ -1,28 +1,60 @@
-import { UserStore } from './user-store';
-import { User } from './user';
+'use strict';
+
+import {ElevatorConfigurator} from './elevator/elevator-configurator';
 
 
-let userStore = new UserStore();
+class SummaryController {
 
-let user1 = new User('Foo', 'BAR');
-let user2 = new User('John', 'DOE');
-let user3 = new User('Foo', 'BAR');
+    constructor(elevatorConfigurator) {
+        this._elevatorConfigurator = elevatorConfigurator;
+    }
 
-let userList1 = userStore.getUserList();
+    render() {
 
-userStore.addUser(user1);
-userStore.addUser(user2);
-userStore.addUser(user3);
+        let configuration = elevatorConfigurator
+            .getConfiguration();
 
-let userList2 = userStore.getUserList();
+        document.querySelector('#price').textContent = configuration.getPrice();
 
-userStore.removeUser(user1);
+        document.querySelector('#capacity').value = configuration.capacity;
 
-let userList3 = userStore.getUserList();
+    }
 
-console.log(userList1); // []
-console.log(userList2); // [user1, user2, user3]
-console.log(userList3); // [user2, user3]
+}
 
+class FormController {
 
-console.log(document.body);
+    constructor(elevatorConfigurator, onUpdate) {
+        this._elevatorConfigurator = elevatorConfigurator;
+        this._onUpdate = onUpdate;
+    }
+
+    start() {
+
+        document.querySelector('#set-capacity-3')
+            .addEventListener('click', () => {
+                this._elevatorConfigurator.setCapacity(3);
+                this._onUpdate()
+            });
+
+        document.querySelector('#set-capacity-5')
+            .addEventListener('click', () => {
+                this._elevatorConfigurator.setCapacity(5);
+                this._onUpdate();
+            });
+
+        this._onUpdate();
+
+    }
+
+}
+
+let elevatorConfigurator = new ElevatorConfigurator();
+
+let summaryController = new SummaryController(elevatorConfigurator);
+
+let formController = new FormController(elevatorConfigurator, () => {
+    summaryController.render();
+});
+
+formController.start();
