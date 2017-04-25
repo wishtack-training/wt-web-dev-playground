@@ -9,6 +9,10 @@
 
 export class Config {
 
+    width: number;
+    height: number;
+    capacity: number;
+
     constructor() {
         this.capacity = 4;
         this.height = 200;

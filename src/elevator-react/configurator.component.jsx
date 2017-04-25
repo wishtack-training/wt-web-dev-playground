@@ -23,7 +23,7 @@ export class Configurator extends Component {
 
     render() {
         return <div>
-            <h1>Configurator</h1>
+            <h1>React</h1>
             <FormCapacity
                 config={this.state.config}
                 onConfigUpdate={this.updateConfig.bind(this)}/>

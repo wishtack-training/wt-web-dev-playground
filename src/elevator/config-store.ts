@@ -6,9 +6,12 @@
  */
 'use strict';
 
-import {Config} from './config';
+import { Config } from './config';
 
 export class ConfigStore {
+
+    private _config: Config;
+    private _history: Config[];
 
     constructor() {
         this._config = new Config();
@@ -19,17 +22,17 @@ export class ConfigStore {
         }
     }
 
-    setConfig(config) {
-        this._history.push(this._config);
-        this._config = config;
-        localStorage.setItem('config', JSON.stringify(this._config));
-    }
-
     updateConfig(config) {
+
         let configClone = this._config.clone();
+
         this._history.push(this._config);
+
         Object.assign(configClone, config);
-        this.setConfig(configClone);
+
+        this._config = configClone;
+
+        localStorage.setItem('config', JSON.stringify(this._config));
     }
 
     getConfig() {

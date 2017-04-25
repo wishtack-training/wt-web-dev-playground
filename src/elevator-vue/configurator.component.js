@@ -30,12 +30,12 @@ export const ConfiguratorComponent = {
             this.configStore.undo();
         },
         updateConfig: function (config) {
-            this.configStore.setConfig(config);
+            this.configStore.updateConfig(config);
         }
     },
     template: `
 <div>
-    <h1>Configurator</h1>
+    <h1>Vue.js</h1>
     
     <button @click="formComponent = 'wt-form-capacity'">Capacity</button>
     <button @click="formComponent = 'wt-form-dimensions'">Dimensions</button>

@@ -27,6 +27,10 @@ module.exports = {
                 query: {
                     presets: ['es2015', 'react']
                 }
+            },
+            {
+                test: /.ts$/,
+                loader: 'awesome-typescript-loader'
             }
         ]
     },
@@ -40,6 +44,6 @@ module.exports = {
         })
     ],
     resolve: {
-        extensions: ['.js', '.jsx']
+        extensions: ['.js', '.jsx', '.ts']
     }
 };
