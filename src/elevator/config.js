@@ -7,7 +7,7 @@
 
 'use strict';
 
-export class ElevatorConfiguration {
+export class Config {
 
     constructor() {
         this.capacity = 4;
@@ -16,7 +16,7 @@ export class ElevatorConfiguration {
     }
 
     clone() {
-        let elevatorConfiguration = new ElevatorConfiguration();
+        let elevatorConfiguration = new Config();
         Object.assign(elevatorConfiguration, this);
         return elevatorConfiguration;
     }
