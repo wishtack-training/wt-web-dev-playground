@@ -7,19 +7,25 @@
 'use strict';
 
 import { Config } from './config';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 export class ConfigStore {
 
     private _config: Config;
     private _history: Config[];
+    private _config$ = new ReplaySubject<Config>(1);
 
     constructor() {
         this._config = new Config();
         this._history = [];
         let data = localStorage.getItem('config');
         if (data != null) {
-            Object.assign(this._config, JSON.parse(data));
+            this.updateConfig(JSON.parse(data));
         }
+    }
+
+    get config$() {
+        return this._config$;
     }
 
     updateConfig(config) {
@@ -30,9 +36,8 @@ export class ConfigStore {
 
         Object.assign(configClone, config);
 
-        this._config = configClone;
+        this._setConfig(configClone);
 
-        localStorage.setItem('config', JSON.stringify(this._config));
     }
 
     getConfig() {
@@ -41,8 +46,20 @@ export class ConfigStore {
 
     undo() {
         if (this._history.length > 0) {
-            this._config = this._history.pop();
+            this._setConfig(this._history.pop());
         }
     }
 
+    private _setConfig(config) {
+
+        this._config = config;
+
+        localStorage.setItem('config', JSON.stringify(this._config));
+
+        this._config$.next(this._config);
+
+    }
+
 }
+
+export const configStore = new ConfigStore();

@@ -5,33 +5,50 @@
  * $Id: $
  */
 
-import { Component } from '@angular/core';
-import { ConfigStore } from '../elevator/config-store';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ConfigStore, configStore } from '../elevator/config-store';
+import { Subscription } from 'rxjs';
+import { Config } from "../elevator/config";
 
 @Component({
     selector: 'wt-configurator',
     template: `
 <h1>Angular</h1>
-<wt-form-capacity
-        [config]="getConfig()"
-        (onConfigChange)="updateConfig($event)"></wt-form-capacity>
-<wt-form-dimensions
-        [config]="getConfig()"
-        (onConfigChange)="updateConfig($event)"></wt-form-dimensions>
-<wt-summary
-        [config]="getConfig()"></wt-summary>
+<div *ngIf="config">
+    <wt-form-capacity
+            [config]="config"
+            (onConfigChange)="updateConfig($event)"></wt-form-capacity>
+    <wt-form-dimensions
+            [config]="config"
+            (onConfigChange)="updateConfig($event)"></wt-form-dimensions>
+    <wt-summary
+            [config]="config"></wt-summary>
+</div>
 `
 })
-export class ConfiguratorComponent {
+export class ConfiguratorComponent implements OnInit, OnDestroy {
 
-    private _configStore = new ConfigStore();
+    config: Config;
 
-    getConfig() {
-        return this._configStore.getConfig();
+    private _configStore = configStore;
+    private _subscription: Subscription;
+
+    constructor(private _changeDetector: ChangeDetectorRef) {}
+
+    ngOnInit() {
+        this._subscription = this._configStore.config$
+            .subscribe((config) => {
+                this.config = config;
+                this._changeDetector.detectChanges();
+            });
     }
 
     updateConfig(config) {
         this._configStore.updateConfig(config);
+    }
+
+    ngOnDestroy() {
+        this._subscription.unsubscribe();
     }
 
 }

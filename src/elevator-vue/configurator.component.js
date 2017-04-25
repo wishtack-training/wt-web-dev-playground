@@ -7,12 +7,10 @@
 
 'use strict';
 
-import { ConfigStore } from '../elevator/config-store';
+import { configStore } from '../elevator/config-store';
 
 export const ConfiguratorComponent = {
     data: () => {
-
-        const configStore = new ConfigStore();
 
         return {
             configStore: configStore,
