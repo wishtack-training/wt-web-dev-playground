@@ -8,6 +8,7 @@
 'use strict';
 
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LiveReloadPlugin = require('webpack-livereload-plugin');
 
@@ -17,10 +18,28 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
+    module: {
+        loaders: [
+            {
+                test: /.jsx?$/,
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                query: {
+                    presets: ['es2015', 'react']
+                }
+            }
+        ]
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: 'index.html'
         }),
-        new LiveReloadPlugin()
-    ]
+        new LiveReloadPlugin(),
+        new webpack.ProvidePlugin({
+            'React': 'react'
+        })
+    ],
+    resolve: {
+        extensions: ['.js', '.jsx']
+    }
 };

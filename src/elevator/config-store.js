@@ -19,10 +19,17 @@ export class ConfigStore {
         }
     }
 
-    setConfig(elevatorConfiguration) {
+    setConfig(config) {
         this._history.push(this._config);
-        this._config = elevatorConfiguration;
+        this._config = config;
         localStorage.setItem('config', JSON.stringify(this._config));
+    }
+
+    updateConfig(config) {
+        let configClone = this._config.clone();
+        this._history.push(this._config);
+        Object.assign(configClone, config);
+        this.setConfig(configClone);
     }
 
     getConfig() {
