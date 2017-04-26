@@ -30,13 +30,17 @@ export class ConfigStore {
 
     updateConfig(config) {
 
-        let configClone = this._config.clone();
+        let newConfig = this._config.clone();
+
+        Object.assign(newConfig, config);
+
+        if (!newConfig.isValid()) {
+            return;
+        }
 
         this._history.push(this._config);
 
-        Object.assign(configClone, config);
-
-        this._setConfig(configClone);
+        this._setConfig(newConfig);
 
     }
 

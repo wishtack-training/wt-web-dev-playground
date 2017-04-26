@@ -29,4 +29,12 @@ export class Config {
         return this.capacity * 5 + this.height * 2 + this.width * 3;
     }
 
+    isValid() {
+
+        return this.capacity != null
+                && this.height != null
+                && this.width != null;
+
+    }
+
 }

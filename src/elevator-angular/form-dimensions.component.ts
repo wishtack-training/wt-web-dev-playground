@@ -20,6 +20,7 @@ import { Config } from '../elevator/config';
             id="wt-height">
     <label class="mdl-textfield__label" for="wt-height">Height</label>
 </div>
+
 <div class="mdl-textfield mdl-js-textfield">
     <input
             [ngModel]="config.width"
