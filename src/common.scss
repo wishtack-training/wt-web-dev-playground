@@ -1,0 +1,38 @@
+@media (max-width: 599px) {
+
+  .wt-show-gt-sm {
+    display: none;
+  }
+
+  .wt-layout-lt-sm--column {
+    display: flex;
+    flex-direction: column;
+  }
+
+}
+
+@media (min-width: 600px) {
+
+  .wt-hide-gt-sm {
+    display: none;
+  }
+
+  .wt-layout-gt-sm--row {
+    display: flex;
+    flex-direction: row;
+  }
+
+}
+
+.wt-presets {
+  flex-wrap: wrap;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.wt-preset {
+  border-style: solid;
+  border-width: 1px;
+  flex-grow: 1;
+  flex-basis: auto;
+}

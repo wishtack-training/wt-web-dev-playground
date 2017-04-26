@@ -13,17 +13,24 @@ import { Config } from "../elevator/config";
 @Component({
     selector: 'wt-configurator',
     template: `
-<h1>Angular</h1>
-<div *ngIf="config">
-    <wt-form-capacity
-            [config]="config"
-            (onConfigChange)="updateConfig($event)"></wt-form-capacity>
-    <wt-form-dimensions
-            [config]="config"
-            (onConfigChange)="updateConfig($event)"></wt-form-dimensions>
-    <wt-summary
-            [config]="config"></wt-summary>
+<div class="mdl-card">
+    <div class="mdl-card__title">
+        <h1 class="mdl-card__title-text">Angular</h1>
+    </div>
+    <div *ngIf="config">
+        <wt-form-capacity
+                [config]="config"
+                (onConfigChange)="updateConfig($event)"></wt-form-capacity>
+        <wt-form-dimensions
+                [config]="config"
+                (onConfigChange)="updateConfig($event)"></wt-form-dimensions>
+        <div class="mdl-card__supporting-text">
+            <wt-summary
+                    [config]="config"></wt-summary>
+        </div>
+    </div>
 </div>
+
 `
 })
 export class ConfiguratorComponent implements OnInit, OnDestroy {

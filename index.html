@@ -2,17 +2,39 @@
 <html>
 
 <head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <script src="http://localhost:35729/livereload.js"></script>
+
 </head>
 
 <body>
 
-<wt-app></wt-app>
+<div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect">
+    <div class="mdl-tabs__tab-bar">
+        <a
+                class="mdl-tabs__tab is-active"
+                href="#wt-angular-panel">Angular</a>
+        <a
+                class="mdl-tabs__tab"
+                href="#wt-react-panel">React</a>
+        <a
+                class="mdl-tabs__tab"
+                href="#wt-vue-panel" >Vue</a>
+    </div>
 
-<div id="wt-react"></div>
-
-<div id="wt-vue">
-    <wt-configurator></wt-configurator>
+    <div class="mdl-tabs__panel is-active" id="wt-angular-panel">
+        <wt-app></wt-app>
+    </div>
+    <div class="mdl-tabs__panel" id="wt-react-panel">
+        <div id="wt-react"></div>
+    </div>
+    <div class="mdl-tabs__panel" id="wt-vue-panel">
+        <div id="wt-vue">
+            <wt-configurator></wt-configurator>
+        </div>
+    </div>
 </div>
 
 </body>

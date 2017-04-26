@@ -11,10 +11,15 @@ import { Config } from '../elevator/config';
 @Component({
     selector: 'wt-form-capacity',
     template: `
-<input
-        type="text" 
-        [ngModel]="config.capacity"
-        (ngModelChange)="updateConfig({capacity: $event})">
+<div class="mdl-textfield mdl-js-textfield">
+    <input
+            [ngModel]="config.capacity"
+            (ngModelChange)="updateConfig({capacity: $event})"
+            class="mdl-textfield__input"
+            type="number"
+            id="wt-capacity">
+    <label class="mdl-textfield__label" for="wt-capacity">Capacity</label>
+</div>
 `
 })
 export class FormCapacityComponent {
